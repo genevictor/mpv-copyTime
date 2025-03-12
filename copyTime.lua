@@ -37,7 +37,7 @@ local function get_clipboard_cmd()
 end
 
 local function divmod(a, b)
-    return a / b, a % b
+    return math.floor(a / b), a % b
 end
 
 local function set_clipboard(text) 
@@ -60,7 +60,7 @@ local function copyTime()
     local minutes, remainder = divmod(time_pos, 60)
     local hours, minutes = divmod(minutes, 60)
     local seconds = math.floor(remainder)
-    local milliseconds = math.floor((remainder - seconds) * 1000)
+    local milliseconds = math.floor((remainder - seconds) * 1000 + 0.5)
     local time = string.format("%02d:%02d:%02d.%03d", hours, minutes, seconds, milliseconds)
     if set_clipboard(time) then
         mp.osd_message(string.format("Copied to Clipboard: %s", time))
